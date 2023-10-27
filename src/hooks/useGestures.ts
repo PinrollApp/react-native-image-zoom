@@ -26,6 +26,7 @@ export const useGestures = ({
   maxPanPointers = 2,
   isPanEnabled = true,
   isPinchEnabled = true,
+  resetOnInteractionEnded = false,
   onInteractionStart,
   onInteractionEnd,
   onPinchStart,
@@ -70,7 +71,9 @@ export const useGestures = ({
 
   const onInteractionEnded = () => {
     if (isInteracting.current && !isPinching.current && !isPanning.current) {
-      reset();
+      if (resetOnInteractionEnded) {
+        reset();
+      }
       isInteracting.current = false;
       onInteractionEnd?.();
     }
